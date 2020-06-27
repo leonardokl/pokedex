@@ -20,8 +20,8 @@ const typeColor = {
   dragon: "#377DA2",
   dark: "#4A4A4A",
   fairy: "#986689",
-  unknown: "",
-  shadow: "",
+  unknown: "#707576",
+  shadow: "#4A4A4A",
 };
 
 const LIMIT = 10;
