@@ -1,209 +1,225 @@
-import Head from 'next/head'
+import axios from "axios";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import VisibilitySensor from "react-visibility-sensor";
+import { getId } from "../utils";
 
 export default function Home() {
+  const [next, setNext] = useState();
+  const [pokemons, setPokemons] = useState([]);
+  const [status, setStatus] = useState("loading");
+  async function fetchPokemons() {
+    setStatus("loading");
+
+    try {
+      const { data } = await axios.get(next || "/api/pokemons");
+
+      setNext(data.next);
+      setPokemons(pokemons.concat(data.results));
+      setStatus("resolved");
+    } catch (ex) {
+      console.error(ex);
+      setStatus("error");
+    }
+  }
+  function handleVisibilityChange(isVisible) {
+    if (isVisible && status === "resolved") {
+      fetchPokemons();
+    }
+  }
+
+  useEffect(() => {
+    fetchPokemons();
+  }, []);
+
   return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <html lang="en">
+      <div className="container">
+        <Head>
+          <title>Pokedex</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <header>
+          <h1>Pokedex</h1>
+        </header>
+        <main>
+          <ul className="cards">
+            {pokemons.map((pokemon) => (
+              <li
+                key={pokemon.name}
+                className="cards__item"
+                style={{ backgroundColor: pokemon.types[0].color }}
+              >
+                <div style={{ display: "flex" }}>
+                  <h2
+                    style={{
+                      flex: 1,
+                      marginRight: "1rem",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {pokemon.name}
+                  </h2>
+                  <span>{`#${getId(pokemon.id)}`}</span>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    height: 215,
+                  }}
+                >
+                  <img src={pokemon.image} alt={pokemon.name}></img>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {next && (
+            <div>
+              <VisibilitySensor
+                key={status}
+                partialVisibility
+                onChange={handleVisibilityChange}
+              >
+                <button
+                  className="button"
+                  onClick={fetchPokemons}
+                  disabled={status === "loading"}
+                >
+                  {status === "loading" ? "Loading..." : "Load more"}
+                </button>
+              </VisibilitySensor>
+            </div>
+          )}
+        </main>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <footer>
+          <div>
+            Made by{" "}
+            <a
+              href="https://github.com/leonardokl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @leonardokl
+            </a>
+          </div>
+        </footer>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
+        <style jsx>{`
+          .container {
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
+            justify-content: center;
           }
-        }
-      `}</style>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
+          header {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #eaeaea;
+          }
 
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
+          main {
+            padding: 4rem 2rem;
+            width: 100%;
+            background: #fdfdfd;
+            text-align: center;
+          }
+
+          @media (min-width: 600px) {
+            main {
+              padding: 4rem;
+            }
+          }
+
+          footer {
+            width: 100%;
+            height: 100px;
+            border-top: 1px solid #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .cards {
+            align-items: center;
+            display: grid;
+            grid-gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            margin-bottom: 2rem;
+            text-align: left;
+          }
+
+          .cards__item {
+            animation: fadein 2s;
+            border-radius: 2rem;
+            border: none;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            color: white;
+            // cursor: pointer;
+            font-size: 1em;
+            padding: 2rem;
+            transition: 0.2s;
+            width: 100%;
+          }
+
+          .cards__item:hover,
+          .cards__item:focus {
+            transform: scale3d(1.1, 1.1, 1);
+          }
+
+          .button {
+            transition: 0.2s;
+            cursor: pointer;
+            background: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            font-size: 2em;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          }
+
+          .button:hover,
+          .button:focus {
+            transform: scale3d(1.1, 1.1, 1);
+          }
+        `}</style>
+
+        <style jsx global>{`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+              sans-serif;
+          }
+
+          * {
+            box-sizing: border-box;
+          }
+
+          ul {
+            margin: 0;
+            padding: 0;
+          }
+
+          li {
+            list-style: none;
+          }
+
+          h2 {
+            margin: 0;
+            font-size: 2em;
+          }
+        `}</style>
+      </div>
+    </html>
+  );
 }
