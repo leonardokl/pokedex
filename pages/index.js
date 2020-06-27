@@ -2,8 +2,14 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import VisibilitySensor from "react-visibility-sensor";
-import { getId } from "../utils";
-import styles from "./index.module.css";
+import Pokemons from "../components/pokemons";
+import styles from "./index.module.scss";
+
+const buttonText = {
+  loading: "Loading...",
+  error: "Try again",
+  resolved: "Load more",
+};
 
 export default function Home() {
   const [next, setNext] = useState();
@@ -45,53 +51,22 @@ export default function Home() {
           <h1>Pokedex</h1>
         </header>
         <main>
-          <ul className={styles.cards}>
-            {pokemons.map((pokemon) => (
-              <li
-                key={pokemon.name}
-                className={styles.card}
-                style={{ backgroundColor: pokemon.types[0].color }}
+          <Pokemons data={pokemons} />
+          {status === "error" && <div role="alert">An error ocurred</div>}
+          {(next || status !== "resolved") && (
+            <VisibilitySensor
+              key={status}
+              partialVisibility
+              onChange={handleVisibilityChange}
+            >
+              <button
+                className={styles.button}
+                onClick={fetchPokemons}
+                disabled={isLoading}
               >
-                <div style={{ display: "flex" }}>
-                  <h2
-                    style={{
-                      flex: 1,
-                      marginRight: "1rem",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {pokemon.name}
-                  </h2>
-                  <span>{`#${getId(pokemon.id)}`}</span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    height: 215,
-                  }}
-                >
-                  <img src={pokemon.image} alt={pokemon.name}></img>
-                </div>
-              </li>
-            ))}
-          </ul>
-          {(next || isLoading) && (
-            <div>
-              <VisibilitySensor
-                key={status}
-                partialVisibility
-                onChange={handleVisibilityChange}
-              >
-                <button
-                  className={styles.button}
-                  onClick={fetchPokemons}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Loading..." : "Load more"}
-                </button>
-              </VisibilitySensor>
-            </div>
+                {buttonText[status]}
+              </button>
+            </VisibilitySensor>
           )}
         </main>
 

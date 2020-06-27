@@ -24,8 +24,6 @@ const typeColor = {
   shadow: "#4A4A4A",
 };
 
-const LIMIT = 10;
-
 function getNextUrl(url) {
   if (!url) return null;
 
@@ -34,12 +32,18 @@ function getNextUrl(url) {
   return `/api/pokemons?offset=${searchParams.get("offset")}`;
 }
 
+function getImage(data) {
+  return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${getId(
+    data.id
+  )}.png`;
+}
+
 export default async (req, res) => {
   const { offset = 0 } = req.query;
 
   try {
     const pokemonsResponse = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon?limit=${LIMIT}&offset=${offset}`
+      `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`
     );
     const pokemonsDetailsResponses = await Promise.all(
       pokemonsResponse.data.results.map((result) => axios.get(result.url))
@@ -54,9 +58,7 @@ export default async (req, res) => {
           name: ability.name,
         })),
         forms: data.forms,
-        image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${getId(
-          data.id
-        )}.png`,
+        image: getImage(data),
         types: data.types.map(({ type }) => ({
           name: type.name,
           color: typeColor[type.name],
