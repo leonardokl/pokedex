@@ -44,44 +44,42 @@ export default function Home() {
   }, []);
 
   return (
-    <html lang="en">
+    <div className={styles.container}>
       <Head>
         <title>{TITLE}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.container}>
-        <header>
-          <h1>{TITLE}</h1>
-        </header>
-        <main>
-          <Pokemons data={pokemons} />
-          {status === "error" && <div role="alert">An error ocurred</div>}
-          {(next || !isResolved) && (
-            <VisibilitySensor
-              key={status}
-              partialVisibility
-              onChange={handleVisibilityChange}
-            >
-              <Button onClick={fetchPokemons} disabled={isLoading}>
-                {buttonText[status]}
-              </Button>
-            </VisibilitySensor>
-          )}
-        </main>
+      <header>
+        <h1>{TITLE}</h1>
+      </header>
+      <main>
+        <Pokemons data={pokemons} />
+        {status === "error" && <div role="alert">An error ocurred</div>}
+        {(next || !isResolved) && (
+          <VisibilitySensor
+            key={status}
+            partialVisibility
+            onChange={handleVisibilityChange}
+          >
+            <Button onClick={fetchPokemons} disabled={isLoading}>
+              {buttonText[status]}
+            </Button>
+          </VisibilitySensor>
+        )}
+      </main>
 
-        <footer>
-          <div>
-            Made by{" "}
-            <a
-              href="https://github.com/leonardokl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @leonardokl
-            </a>
-          </div>
-        </footer>
-      </div>
-    </html>
+      <footer>
+        <div>
+          Made by{" "}
+          <a
+            href="https://github.com/leonardokl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @leonardokl
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 }

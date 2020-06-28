@@ -18,6 +18,7 @@ export default function Pokemons({ data }) {
       <ul className={styles.cards}>
         {data.map((pokemon) => (
           <PokemonCard
+            key={pokemon.name}
             data={pokemon}
             onClick={() => setSelectedPokemon(pokemon)}
           />

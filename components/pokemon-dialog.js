@@ -22,7 +22,7 @@ export default function PokemonDialog({ data, onClose }) {
       isOpen={!!data}
       onDismiss={onClose}
       className={styles.wrapper}
-      aria-label={data && data.name}
+      aria-label={(data && data.name) || "Pokemon details"}
     >
       <CloseButton onClick={onClose} />
       {data && (
