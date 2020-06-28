@@ -12,9 +12,7 @@ export default function PokemonCard({ data, ...props }) {
       </div>
       <PokemonTypes data={data.types} size="small" />
       <VisuallyHidden>
-        <button
-          onClick={() => setSelectedPokemon(data)}
-        >{`See ${data.name} details`}</button>
+        <button onClick={props.onClick}>{`See ${data.name} details`}</button>
       </VisuallyHidden>
     </li>
   );
