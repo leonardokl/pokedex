@@ -1,3 +1,4 @@
+export const TITLE = "Pokédex";
 export const TYPE_COLOR = {
   normal: { value: "#707576", type: "dark" },
   fighting: { value: "#BD581A", type: "dark" },

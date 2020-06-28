@@ -1,6 +1,7 @@
 import { Dialog } from "@reach/dialog";
 import Head from "next/head";
 import { FiX } from "react-icons/fi";
+import { TITLE } from "../constants";
 import List from "./list";
 import Measure from "./measure";
 import styles from "./pokemon-dialog.module.scss";
@@ -27,7 +28,9 @@ export default function PokemonDialog({ data, onClose }) {
       {data && (
         <>
           <Head>
-            <title>{data.name} - Pokedex</title>
+            <title>
+              {data.name} - {TITLE}
+            </title>
           </Head>
           <PokemonHeader data={data} />
           <div className={styles.image}>

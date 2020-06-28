@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 import Button from "../components/button";
 import Pokemons from "../components/pokemons";
+import { TITLE } from "../constants";
 import styles from "./index.module.scss";
 
 const buttonText = {
@@ -34,7 +35,7 @@ export default function Home() {
   }
   function handleVisibilityChange(isVisible) {
     if (isVisible && isResolved) {
-      // fetchPokemons();
+      fetchPokemons();
     }
   }
 
@@ -45,12 +46,12 @@ export default function Home() {
   return (
     <html lang="en">
       <Head>
-        <title>Pokedex</title>
+        <title>{TITLE}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.container}>
         <header>
-          <h1>Pokedex</h1>
+          <h1>{TITLE}</h1>
         </header>
         <main>
           <Pokemons data={pokemons} />
