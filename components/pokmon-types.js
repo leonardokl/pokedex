@@ -10,7 +10,10 @@ export default function PokemonTypes({ data, size = "normal" }) {
       {data.map((type) => (
         <li
           key={type.name}
-          style={{ backgroundColor: type.color }}
+          style={{
+            backgroundColor: type.color.value,
+            color: type.color.type === "light" ? "inherit" : undefined,
+          }}
           className={styles.listItem}
         >
           {type.name}
