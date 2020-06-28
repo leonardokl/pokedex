@@ -1,29 +1,11 @@
+@import "../base";
+
 .container {
   display: flex;
   flex-direction: column;
 
   div[role="alert"] {
-    font-size: 2em;
-    margin-bottom: 1rem;
-  }
-}
-
-.button {
-  background: white;
-  border-radius: 2rem;
-  border: none;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  font-size: 1.6em;
-  padding: 1rem 2rem;
-  transition: 0.2s;
-
-  &:not(:disabled) {
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      transform: scale3d(1.1, 1.1, 1);
-    }
+    font-size: $font-lg;
+    margin-bottom: $gap-sm;
   }
 }

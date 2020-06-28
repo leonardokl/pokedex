@@ -1,5 +1,4 @@
-$gray-1: #f4f4f4;
-$gray-2: #eaeaea;
+@import "../base";
 
 html,
 body {
@@ -23,13 +22,13 @@ li {
 }
 
 h2 {
-  margin: 0;
   font-size: 2em;
+  margin: 0;
 }
 
 header {
   align-items: center;
-  border-bottom: 1px solid $gray-2;
+  border-bottom: 1px solid $gray-1;
   display: flex;
   height: 100px;
   justify-content: center;
@@ -37,19 +36,19 @@ header {
 }
 
 main {
-  padding: 2rem;
-  width: 100%;
-  background: $gray-1;
+  background: $gray-2;
+  padding: $gap-md;
   text-align: center;
+  width: 100%;
 
-  @media (min-width: 600px) {
-    padding: 4rem;
+  @media (min-width: $break-md) {
+    padding: $gap-lg;
   }
 }
 
 footer {
   align-items: center;
-  border-top: 1px solid $gray-2;
+  border-top: 1px solid $gray-1;
   display: flex;
   height: 100px;
   justify-content: center;

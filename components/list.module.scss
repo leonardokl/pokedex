@@ -1,7 +1,10 @@
+@import "../base";
+
 .wrapper {
-  margin-top: 1rem;
+  margin-top: $gap-sm;
 
   li {
-    font-size: 1.6rem;
+    font-size: $font-md;
+    text-transform: capitalize;
   }
 }

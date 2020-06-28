@@ -1,4 +1,4 @@
-import styles from "./pokmon-types.module.scss";
+import styles from "./pokemon-types.module.scss";
 
 export default function PokemonTypes({ data, size = "normal" }) {
   return (

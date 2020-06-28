@@ -1,11 +1,13 @@
+@import "../base";
+
 .wrapper {
   display: flex;
   text-transform: capitalize;
 }
 
 .listItem {
-  background: #606060;
-  border-radius: 2rem;
+  background: $gray-3;
+  border-radius: $border-radius;
   color: white;
 
   &:not(:last-child) {

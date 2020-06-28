@@ -1,46 +1,46 @@
+@import "../base";
+
+$image-size: 300px;
+
 .wrapper {
   margin: 0 !important;
-  width: 100% !important;
   min-height: 100vh;
+  width: 100% !important;
 
-  @media (min-width: 600px) {
-    border-radius: 2rem;
+  @media (min-width: $break-md) {
+    border-radius: $border-radius;
     margin: 10vh auto !important;
     min-height: auto;
     width: 500px !important;
   }
-
-  ul {
-    text-transform: capitalize;
-  }
 }
 
 .closeButton {
-  padding: 0;
-  margin-left: -4px;
   background: none;
   border: none;
-  color: #666;
+  color: $gray-3;
   cursor: pointer;
   display: flex;
   font-size: 2rem;
+  margin-left: -4px;
+  padding: 0;
 
   &:focus,
   &:hover {
-    color: black;
+    color: inherit;
   }
 }
 
 .image {
+  background: $gray-2;
+  border-radius: $border-radius;
   display: flex;
   justify-content: center;
-  background: #eaeaea;
-  border-radius: 2rem;
-  margin: 1rem 0;
+  margin: $gap-sm 0;
 
   img {
-    height: 300px;
-    width: 300px;
+    height: $image-size;
+    width: $image-size;
   }
 }
 

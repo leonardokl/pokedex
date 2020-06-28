@@ -1,0 +1,20 @@
+@import "../base";
+
+.wrapper {
+  background: white;
+  border-radius: $border-radius;
+  border: none;
+  box-shadow: $box-shadow;
+  font-size: $font-md;
+  padding: $gap-sm $gap-md;
+  transition: 0.2s;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      transform: scale3d(1.1, 1.1, 1);
+    }
+  }
+}

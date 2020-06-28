@@ -1,0 +1,29 @@
+@import "../base";
+
+.wrapper {
+  border-radius: $border-radius;
+  border: none;
+  background: white;
+  box-shadow: $box-shadow;
+  cursor: pointer;
+  font-size: $font;
+  padding: $gap-md;
+  transition: 0.2s;
+  width: 100%;
+
+  h2 {
+    font-size: $font-lg;
+    margin: 0;
+  }
+
+  &:focus-within,
+  &:hover {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  height: 215px;
+}

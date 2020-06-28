@@ -5,7 +5,15 @@ import List from "./list";
 import Measure from "./measure";
 import styles from "./pokemon-dialog.module.scss";
 import PokemonHeader from "./pokemon-header";
-import PokemonTypes from "./pokmon-types";
+import PokemonTypes from "./pokemon-types";
+
+function CloseButton(props) {
+  return (
+    <button className={styles.closeButton} aria-label="Close" {...props}>
+      <FiX />
+    </button>
+  );
+}
 
 export default function PokemonDialog({ data, onClose }) {
   return (
@@ -15,14 +23,7 @@ export default function PokemonDialog({ data, onClose }) {
       className={styles.wrapper}
       aria-label={data && data.name}
     >
-      <button
-        className={styles.closeButton}
-        aria-label="Close"
-        onClick={onClose}
-      >
-        <FiX />
-      </button>
-
+      <CloseButton onClick={onClose} />
       {data && (
         <>
           <Head>

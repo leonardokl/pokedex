@@ -2,14 +2,6 @@ import axios from "axios";
 import { TYPE_COLOR } from "../../constants";
 import { getId } from "../../utils";
 
-function getNextUrl(url) {
-  if (!url) return null;
-
-  const { searchParams } = new URL(url);
-
-  return `/api/pokemons?offset=${searchParams.get("offset")}`;
-}
-
 const IMAGES_URL = "https://assets.pokemon.com/assets/cms2/img/pokedex";
 
 function getImage(data) {
@@ -19,6 +11,14 @@ function getImage(data) {
     small: `${IMAGES_URL}/detail/${id}.png`,
     big: `${IMAGES_URL}/full/${id}.png`,
   };
+}
+
+function getNextUrl(url) {
+  if (!url) return null;
+
+  const { searchParams } = new URL(url);
+
+  return `/api/pokemons?offset=${searchParams.get("offset")}`;
 }
 
 export default async (req, res) => {

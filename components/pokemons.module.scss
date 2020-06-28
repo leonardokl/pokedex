@@ -1,32 +1,10 @@
+@import "../base";
+
 .cards {
   align-items: center;
   display: grid;
-  grid-gap: 2rem;
+  grid-gap: $gap-md;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  margin-bottom: 2rem;
+  margin-bottom: $gap-md;
   text-align: left;
-}
-
-.card {
-  border-radius: 2rem;
-  border: none;
-  background: white;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  font-size: 1em;
-  padding: 2rem;
-  transition: 0.2s;
-  width: 100%;
-
-  &:focus-within,
-  &:hover {
-    transform: scale3d(1.1, 1.1, 1);
-  }
-}
-
-.image {
-  display: flex;
-  justify-content: center;
-  height: 215px;
 }

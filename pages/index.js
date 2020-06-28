@@ -2,6 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import VisibilitySensor from "react-visibility-sensor";
+import Button from "../components/button";
 import Pokemons from "../components/pokemons";
 import styles from "./index.module.scss";
 
@@ -16,6 +17,7 @@ export default function Home() {
   const [pokemons, setPokemons] = useState([]);
   const [status, setStatus] = useState("loading");
   const isLoading = status === "loading";
+  const isResolved = status === "resolved";
   async function fetchPokemons() {
     setStatus("loading");
 
@@ -31,8 +33,8 @@ export default function Home() {
     }
   }
   function handleVisibilityChange(isVisible) {
-    if (isVisible && status === "resolved") {
-      fetchPokemons();
+    if (isVisible && isResolved) {
+      // fetchPokemons();
     }
   }
 
@@ -42,30 +44,26 @@ export default function Home() {
 
   return (
     <html lang="en">
+      <Head>
+        <title>Pokedex</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className={styles.container}>
-        <Head>
-          <title>Pokedex</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
         <header>
           <h1>Pokedex</h1>
         </header>
         <main>
           <Pokemons data={pokemons} />
           {status === "error" && <div role="alert">An error ocurred</div>}
-          {(next || status !== "resolved") && (
+          {(next || !isResolved) && (
             <VisibilitySensor
               key={status}
               partialVisibility
               onChange={handleVisibilityChange}
             >
-              <button
-                className={styles.button}
-                onClick={fetchPokemons}
-                disabled={isLoading}
-              >
+              <Button onClick={fetchPokemons} disabled={isLoading}>
                 {buttonText[status]}
-              </button>
+              </Button>
             </VisibilitySensor>
           )}
         </main>

@@ -1,13 +1,15 @@
+@import "../base";
+
 .header {
   display: flex;
 
   span {
-    color: #666;
+    color: $gray-3;
   }
 
   h2 {
     flex: 1;
-    margin-right: 1rem;
+    margin-right: $gap-sm;
     text-transform: capitalize;
   }
 }
