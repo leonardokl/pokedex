@@ -37,14 +37,12 @@ header {
 }
 
 main {
-  padding: 4rem 2rem;
+  padding: 2rem;
   width: 100%;
   background: $gray-1;
   text-align: center;
-}
 
-@media (min-width: 600px) {
-  main {
+  @media (min-width: 600px) {
     padding: 4rem;
   }
 }

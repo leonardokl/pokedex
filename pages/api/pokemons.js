@@ -1,28 +1,6 @@
 import axios from "axios";
+import { TYPE_COLOR } from "../../constants";
 import { getId } from "../../utils";
-
-const typeColor = {
-  normal: "#707576",
-  fighting: "#BD581A",
-  flying: "#23809B",
-  poison: "#9D5DAE",
-  ground: "#857633",
-  rock: "#897414",
-  bug: "#5C8034",
-  ghost: "#7b62a3",
-  steel: "#617B7C",
-  fire: "#C75301",
-  water: "#357CAA",
-  grass: "#568211",
-  electric: "#887605",
-  psychic: "#D42E90",
-  ice: "#237F9B",
-  dragon: "#377DA2",
-  dark: "#4A4A4A",
-  fairy: "#986689",
-  unknown: "#707576",
-  shadow: "#4A4A4A",
-};
 
 function getNextUrl(url) {
   if (!url) return null;
@@ -32,10 +10,15 @@ function getNextUrl(url) {
   return `/api/pokemons?offset=${searchParams.get("offset")}`;
 }
 
+const IMAGES_URL = "https://assets.pokemon.com/assets/cms2/img/pokedex";
+
 function getImage(data) {
-  return `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${getId(
-    data.id
-  )}.png`;
+  const id = getId(data.id);
+
+  return {
+    small: `${IMAGES_URL}/detail/${id}.png`,
+    big: `${IMAGES_URL}/full/${id}.png`,
+  };
 }
 
 export default async (req, res) => {
@@ -54,6 +37,8 @@ export default async (req, res) => {
       results: pokemonsDetailsResponses.map(({ data }) => ({
         id: data.id,
         name: data.name,
+        height: data.height / 10,
+        weight: data.weight / 10,
         abilities: data.abilities.map(({ ability }) => ({
           name: ability.name,
         })),
@@ -61,12 +46,12 @@ export default async (req, res) => {
         image: getImage(data),
         types: data.types.map(({ type }) => ({
           name: type.name,
-          color: typeColor[type.name],
+          color: TYPE_COLOR[type.name],
         })),
       })),
     };
 
-    return res.status(200).json(data);
+    return res.json(data);
   } catch (ex) {
     res.status(500).json({ message: ex.message });
   }

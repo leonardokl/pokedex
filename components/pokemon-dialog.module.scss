@@ -1,0 +1,49 @@
+.wrapper {
+  margin: 0 !important;
+  width: 100% !important;
+  min-height: 100vh;
+
+  @media (min-width: 600px) {
+    border-radius: 2rem;
+    margin: 10vh auto !important;
+    min-height: auto;
+    width: 500px !important;
+  }
+
+  ul {
+    text-transform: capitalize;
+  }
+}
+
+.closeButton {
+  padding: 0;
+  margin-left: -4px;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  font-size: 2rem;
+
+  &:focus,
+  &:hover {
+    color: black;
+  }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  background: #eaeaea;
+  border-radius: 2rem;
+  margin: 1rem 0;
+
+  img {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+.measures {
+  display: flex;
+}

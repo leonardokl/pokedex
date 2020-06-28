@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  text-transform: capitalize;
+}
+
+.listItem {
+  background: #606060;
+  border-radius: 2rem;
+  color: white;
+
+  &:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+
+.normal .listItem {
+  padding: 0.4rem 0.8rem;
+}
+
+.small .listItem {
+  font-size: smaller;
+  padding: 0.2rem 0.6rem;
+}
