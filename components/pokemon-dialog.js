@@ -1,4 +1,5 @@
 import { Dialog } from "@reach/dialog";
+import Head from "next/head";
 import { FiX } from "react-icons/fi";
 import List from "./list";
 import Measure from "./measure";
@@ -24,6 +25,9 @@ export default function PokemonDialog({ data, onClose }) {
 
       {data && (
         <>
+          <Head>
+            <title>{data.name} - Pokedex</title>
+          </Head>
           <PokemonHeader data={data} />
           <div className={styles.image}>
             <img src={data.image.big} alt={data.name}></img>
