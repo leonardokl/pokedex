@@ -5,7 +5,10 @@
   "scripts": {
     "start": "next dev",
     "build": "next build",
-    "production": "next start"
+    "production": "next start",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test": "start-server-and-test start http://localhost:3000 cy:run"
   },
   "dependencies": {
     "@reach/dialog": "^0.10.5",
@@ -17,5 +20,9 @@
     "react-icons": "^3.10.0",
     "react-visibility-sensor": "^5.1.1",
     "sass": "^1.26.9"
+  },
+  "devDependencies": {
+    "cypress": "^4.9.0",
+    "start-server-and-test": "^1.11.0"
   }
 }

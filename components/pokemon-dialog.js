@@ -10,7 +10,12 @@ import PokemonTypes from "./pokemon-types";
 
 function CloseButton(props) {
   return (
-    <button className={styles.closeButton} aria-label="Close" {...props}>
+    <button
+      data-testid="pokemon-dialog-close-btn"
+      className={styles.closeButton}
+      aria-label="Close"
+      {...props}
+    >
       <FiX />
     </button>
   );
@@ -23,6 +28,7 @@ export default function PokemonDialog({ data, onClose }) {
       onDismiss={onClose}
       className={styles.wrapper}
       aria-label={(data && data.name) || "Pokemon details"}
+      data-testid="pokemon-dialog"
     >
       <CloseButton onClick={onClose} />
       {data && (

@@ -61,7 +61,11 @@ export default function Home() {
             partialVisibility
             onChange={handleVisibilityChange}
           >
-            <Button onClick={fetchPokemons} disabled={isLoading}>
+            <Button
+              data-testid="pokemon-fetch-btn"
+              onClick={fetchPokemons}
+              disabled={isLoading}
+            >
               {buttonText[status]}
             </Button>
           </VisibilitySensor>

@@ -5,7 +5,12 @@ import PokemonTypes from "./pokemon-types";
 
 export default function PokemonCard({ data, ...props }) {
   return (
-    <li key={data.name} className={styles.wrapper} {...props}>
+    <li
+      data-testid={`pokemon-${data.id}`}
+      key={data.name}
+      className={styles.wrapper}
+      {...props}
+    >
       <PokemonHeader data={data} />
       <div className={styles.image}>
         <img src={data.image.small} alt={data.name} />

@@ -15,7 +15,7 @@ export default function Pokemons({ data }) {
 
   return (
     <>
-      <ul className={styles.cards}>
+      <ul data-testid="pokemons-list" className={styles.cards}>
         {data.map((pokemon) => (
           <PokemonCard
             key={pokemon.name}
